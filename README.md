@@ -98,26 +98,4 @@ public class Reservation
 
 ```
 
-### Veritabanı Oluşturma
 
-Veritabanı dosyasını oluşturmak için `EnsureCreated` metodunu kullanın ve projeyi çalıştırın. Alternatif olarak, `Migrations` kullanarak veritabanı şemasını güncelleyebilirsiniz:
-
-```bash
-
-dotnet ef migrations add InitialCreate
-
-dotnet ef database update
-
-```
-
-### Projeyi Çalıştırma
-
-Projeyi çalıştırmak için Visual Studio veya .NET CLI kullanabilirsiniz:
-
-```bash
-
-dotnet run
-
-```
-
-Bu adımları takip ederek FlightReservation projesini kullanabilir ve geliştirebilirsiniz.
