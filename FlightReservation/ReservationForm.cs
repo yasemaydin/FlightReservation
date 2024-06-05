@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightReservation
 {
 	public partial class ReservationForm : Form
 	{
 		private ApplicationDbContext _context;
+		private bool _isUpdating = false;
 
 		public ReservationForm()
 		{
@@ -24,6 +25,7 @@ namespace FlightReservation
 			LoadAircrafts();
 			LoadLocations();
 			LoadSeats(); // Koltukları yükle
+			comboBoxAircrafts.SelectedIndexChanged += comboBoxAircrafts_SelectedIndexChanged;
 		}
 
 		private void LoadReservations()
@@ -43,42 +45,81 @@ namespace FlightReservation
 		private void LoadLocations()
 		{
 			var locations = _context.Locations.ToList();
-			comboBoxDeparture.DataSource = locations;
+			var departureLocations = locations.ToList(); // Yeni bir liste oluştur
+			var arrivalLocations = locations.ToList(); // Yeni bir liste oluştur
+
+			comboBoxDeparture.DataSource = departureLocations;
 			comboBoxDeparture.DisplayMember = "City";
 			comboBoxDeparture.ValueMember = "Id";
 
-			comboBoxArrival.DataSource = locations;
+			comboBoxArrival.DataSource = arrivalLocations;
 			comboBoxArrival.DisplayMember = "City";
 			comboBoxArrival.ValueMember = "Id";
 		}
+
 		private void LoadSeats()
 		{
-			if (comboBoxAircrafts.SelectedValue is int selectedAircraftId)
+			if (comboBoxAircrafts.SelectedValue != null && int.TryParse(comboBoxAircrafts.SelectedValue.ToString(), out int selectedAircraftId))
 			{
 				var selectedAircraft = _context.Aircrafts.FirstOrDefault(a => a.Id == selectedAircraftId);
 				if (selectedAircraft != null)
 				{
-					int seatCapacity = selectedAircraft.SeatCapacity;
-					var seatStatus = JsonConvert.DeserializeObject<Dictionary<string, string>>(GetSeatStatusJson());
 					panelSeats.Controls.Clear(); // Paneli temizle
+					int seatCapacity = selectedAircraft.SeatCapacity;
+					MessageBox.Show($"Seat Capacity: {seatCapacity}"); // Hata ayıklama mesajı
+					var seatStatus = GetSeatStatusFromDatabase(selectedAircraftId);
+
+					int panelWidth = panelSeats.Width;
+					int buttonWidth = panelWidth / 20; // 20 koltuk sığacak şekilde genişlik ayarla
+					int buttonHeight = 30; // Sabit yükseklik
+					int margin = 2; // Butonlar arası boşluk
+
+					int x = margin; // Başlangıç x koordinatı
+					int y = margin; // Başlangıç y koordinatı
+
 					for (int i = 1; i <= seatCapacity; i++)
 					{
-						string seatNumber = $"Seat {i}";
+						string seatNumber = $"{i}";
 						bool isAvailable = !seatStatus.ContainsKey(seatNumber) || seatStatus[seatNumber] == "Available";
 						Button btnSeat = new Button
 						{
-							Text = seatNumber,
+							Text = seatNumber, // Koltuk numarasını göster
 							BackColor = isAvailable ? Color.Green : Color.Red,
-							Width = 50,
-							Height = 50,
-							Margin = new Padding(5)
+							Width = buttonWidth,
+							Height = buttonHeight,
+							Location = new Point(x, y),
+							Margin = new Padding(margin)
 						};
 						btnSeat.Click += BtnSeat_Click;
 						panelSeats.Controls.Add(btnSeat);
+
+						x += buttonWidth + margin;
+						if (x + buttonWidth > panelWidth)
+						{
+							x = margin; // Yeni satır için x koordinatını sıfırla
+							y += buttonHeight + margin; // Yeni satır için y koordinatını artır
+						}
 					}
 				}
 			}
 		}
+
+
+		private Dictionary<string, string> GetSeatStatusFromDatabase(int aircraftId)
+			{
+				var seatStatus = new Dictionary<string, string>();
+
+				var reservations = _context.Reservations
+					.Where(r => r.AircraftId == aircraftId)
+					.ToList();
+
+				foreach (var reservation in reservations)
+				{
+					seatStatus[reservation.SelectedSeat] = "Sold";
+				}
+
+				return seatStatus;
+			}
 
 		private void btnAddReservation_Click(object sender, EventArgs e)
 		{
@@ -164,6 +205,34 @@ namespace FlightReservation
 			LoadSeats();
 		}
 
+		private void comboBoxDeparture_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (_isUpdating) return;
+			_isUpdating = true;
+
+			if (comboBoxDeparture.SelectedValue != null && comboBoxDeparture.SelectedValue.Equals(comboBoxArrival.SelectedValue))
+			{
+				MessageBox.Show("Departure ve Arrival aynı olamaz.");
+				comboBoxDeparture.SelectedIndex = -1;
+			}
+
+			_isUpdating = false;
+		}
+
+		private void comboBoxArrival_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (_isUpdating) return;
+			_isUpdating = true;
+
+			if (comboBoxArrival.SelectedValue != null && comboBoxArrival.SelectedValue.Equals(comboBoxDeparture.SelectedValue))
+			{
+				MessageBox.Show("Departure ve Arrival aynı olamaz.");
+				comboBoxArrival.SelectedIndex = -1;
+			}
+
+			_isUpdating = false;
+		}
+
 		private void BtnSeat_Click(object sender, EventArgs e)
 		{
 			Button btnSeat = sender as Button;
@@ -185,6 +254,11 @@ namespace FlightReservation
 				txtCustomerPhone.Text = "";
 				txtCustomerEmail.Text = "";
 			}
+		}
+
+		private void panelSeats_Paint(object sender, PaintEventArgs e)
+		{
+
 		}
 	}
 

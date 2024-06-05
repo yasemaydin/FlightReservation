@@ -21,7 +21,7 @@ namespace FlightReservation
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			//build database
-			//optionsBuilder.UseSqlite("Data Source=reservation.db");
+			optionsBuilder.UseSqlite("Data Source=reservation.db");
 
 			string dbPath = "reservation.db";
 			if (!optionsBuilder.IsConfigured)
