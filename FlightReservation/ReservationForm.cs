@@ -134,7 +134,8 @@ namespace FlightReservation
 				CustomerName = txtCustomerName.Text,
 				CustomerSurname = txtCustomerSurname.Text,
 				CustomerPhone = txtCustomerPhone.Text,
-				CustomerEmail = txtCustomerEmail.Text
+				CustomerEmail = txtCustomerEmail.Text,
+				Gender = comboBoxGender.SelectedItem.ToString() // Cinsiyet bilgisi eklendi
 			};
 
 			_context.Reservations.Add(reservation);

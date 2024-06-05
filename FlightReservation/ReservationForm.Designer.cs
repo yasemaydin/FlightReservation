@@ -37,6 +37,8 @@
 			lblCustomerPhone = new Label();
 			lblCustomerEmail = new Label();
 			panelSeats = new Panel();
+			comboBoxGender = new ComboBox(); // Added for gender selection
+			lblGender = new Label(); // Added for gender label
 			((System.ComponentModel.ISupportInitialize)dataGridViewSeats).BeginInit();
 			((System.ComponentModel.ISupportInitialize)dataGridViewReservations).BeginInit();
 			SuspendLayout();
@@ -226,6 +228,27 @@
 			panelSeats.TabIndex = 0;
 			panelSeats.Paint += panelSeats_Paint;
 			// 
+			// lblGender
+			// 
+			lblGender.AutoSize = true;
+			lblGender.Location = new Point(320, 480);
+			lblGender.Name = "lblGender";
+			lblGender.Size = new Size(45, 15);
+			lblGender.TabIndex = 20;
+			lblGender.Text = "Gender";
+			// 
+			// comboBoxGender
+			// 
+			comboBoxGender.FormattingEnabled = true;
+			comboBoxGender.Items.AddRange(new object[] {
+			"Male",
+			"Female",
+			"Other"});
+			comboBoxGender.Location = new Point(400, 480);
+			comboBoxGender.Name = "comboBoxGender";
+			comboBoxGender.Size = new Size(200, 23);
+			comboBoxGender.TabIndex = 21;
+			// 
 			// ReservationForm
 			// 
 			ClientSize = new Size(1564, 592);
@@ -250,6 +273,8 @@
 			Controls.Add(comboBoxDeparture);
 			Controls.Add(comboBoxAircrafts);
 			Controls.Add(dataGridViewReservations);
+			Controls.Add(lblGender);
+			Controls.Add(comboBoxGender);
 			Name = "ReservationForm";
 			Text = "Reservation Form";
 			((System.ComponentModel.ISupportInitialize)dataGridViewSeats).EndInit();
@@ -280,6 +305,8 @@
 		private System.Windows.Forms.Label lblCustomerEmail;
 		private System.Windows.Forms.DataGridView dataGridViewSeats;
 		private System.Windows.Forms.Panel panelSeats;
+		private System.Windows.Forms.ComboBox comboBoxGender;
+		private System.Windows.Forms.Label lblGender;
 	}
 
 }
