@@ -17,28 +17,28 @@ namespace FlightReservation
 			InitializeComponent();
 		}
 
-		private void btnAircraftForm_Click(object sender, EventArgs e)
-		{
-			var aircraftForm = new AircraftForm();
-			aircraftForm.ShowDialog();
-		}
-
-		private void btnLocationForm_Click(object sender, EventArgs e)
-		{
-			var locationForm = new LocationForm();
-			locationForm.ShowDialog();
-		}
-
-		private void btnReservationForm_Click(object sender, EventArgs e)
-		{
-			var reservationForm = new ReservationForm();
-			reservationForm.ShowDialog();
-		}
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			// Load işlemleri burada yapılacak
+			var aircraftForm = new AircraftForm();
+			aircraftForm.TopLevel = false;
+			aircraftForm.FormBorderStyle = FormBorderStyle.None;
+			aircraftForm.Dock = DockStyle.Fill;
+			this.tabPageAircraft.Controls.Add(aircraftForm);
+			aircraftForm.Show();
+
+			var locationForm = new LocationForm();
+			locationForm.TopLevel = false;
+			locationForm.FormBorderStyle = FormBorderStyle.None;
+			locationForm.Dock = DockStyle.Fill;
+			this.tabPageLocation.Controls.Add(locationForm);
+			locationForm.Show();
+
+			var reservationForm = new ReservationForm();
+			reservationForm.TopLevel = false;
+			reservationForm.FormBorderStyle = FormBorderStyle.None;
+			reservationForm.Dock = DockStyle.Fill;
+			this.tabPageReservation.Controls.Add(reservationForm);
+			reservationForm.Show();
 		}
 	}
-
-
 }

@@ -15,54 +15,67 @@
 
 		private void InitializeComponent()
 		{
-			this.btnAircraftForm = new System.Windows.Forms.Button();
-			this.btnLocationForm = new System.Windows.Forms.Button();
-			this.btnReservationForm = new System.Windows.Forms.Button();
+			this.tabControl = new System.Windows.Forms.TabControl();
+			this.tabPageAircraft = new System.Windows.Forms.TabPage();
+			this.tabPageLocation = new System.Windows.Forms.TabPage();
+			this.tabPageReservation = new System.Windows.Forms.TabPage();
 			this.SuspendLayout();
 			// 
-			// btnAircraftForm
+			// tabControl
 			// 
-			this.btnAircraftForm.Location = new System.Drawing.Point(12, 12);
-			this.btnAircraftForm.Name = "btnAircraftForm";
-			this.btnAircraftForm.Size = new System.Drawing.Size(200, 50);
-			this.btnAircraftForm.TabIndex = 0;
-			this.btnAircraftForm.Text = "Aircraft Form";
-			this.btnAircraftForm.UseVisualStyleBackColor = true;
-			this.btnAircraftForm.Click += new System.EventHandler(this.btnAircraftForm_Click);
+			this.tabControl.Controls.Add(this.tabPageAircraft);
+			this.tabControl.Controls.Add(this.tabPageLocation);
+			this.tabControl.Controls.Add(this.tabPageReservation);
+			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl.Location = new System.Drawing.Point(0, 0);
+			this.tabControl.Name = "tabControl";
+			this.tabControl.SelectedIndex = 0;
+			this.tabControl.Size = new System.Drawing.Size(800, 450);
+			this.tabControl.TabIndex = 0;
 			// 
-			// btnLocationForm
+			// tabPageAircraft
 			// 
-			this.btnLocationForm.Location = new System.Drawing.Point(12, 80);
-			this.btnLocationForm.Name = "btnLocationForm";
-			this.btnLocationForm.Size = new System.Drawing.Size(200, 50);
-			this.btnLocationForm.TabIndex = 1;
-			this.btnLocationForm.Text = "Location Form";
-			this.btnLocationForm.UseVisualStyleBackColor = true;
-			this.btnLocationForm.Click += new System.EventHandler(this.btnLocationForm_Click);
+			this.tabPageAircraft.Location = new System.Drawing.Point(4, 24);
+			this.tabPageAircraft.Name = "tabPageAircraft";
+			this.tabPageAircraft.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPageAircraft.Size = new System.Drawing.Size(792, 422);
+			this.tabPageAircraft.TabIndex = 0;
+			this.tabPageAircraft.Text = "Aircraft";
+			this.tabPageAircraft.UseVisualStyleBackColor = true;
 			// 
-			// btnReservationForm
+			// tabPageLocation
 			// 
-			this.btnReservationForm.Location = new System.Drawing.Point(12, 150);
-			this.btnReservationForm.Name = "btnReservationForm";
-			this.btnReservationForm.Size = new System.Drawing.Size(200, 50);
-			this.btnReservationForm.TabIndex = 2;
-			this.btnReservationForm.Text = "Reservation Form";
-			this.btnReservationForm.UseVisualStyleBackColor = true;
-			this.btnReservationForm.Click += new System.EventHandler(this.btnReservationForm_Click);
+			this.tabPageLocation.Location = new System.Drawing.Point(4, 24);
+			this.tabPageLocation.Name = "tabPageLocation";
+			this.tabPageLocation.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPageLocation.Size = new System.Drawing.Size(792, 422);
+			this.tabPageLocation.TabIndex = 1;
+			this.tabPageLocation.Text = "Location";
+			this.tabPageLocation.UseVisualStyleBackColor = true;
+			// 
+			// tabPageReservation
+			// 
+			this.tabPageReservation.Location = new System.Drawing.Point(4, 24);
+			this.tabPageReservation.Name = "tabPageReservation";
+			this.tabPageReservation.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPageReservation.Size = new System.Drawing.Size(792, 422);
+			this.tabPageReservation.TabIndex = 2;
+			this.tabPageReservation.Text = "Reservation";
+			this.tabPageReservation.UseVisualStyleBackColor = true;
 			// 
 			// MainForm
 			// 
-			this.ClientSize = new System.Drawing.Size(224, 211);
-			this.Controls.Add(this.btnReservationForm);
-			this.Controls.Add(this.btnLocationForm);
-			this.Controls.Add(this.btnAircraftForm);
+			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.tabControl);
 			this.Name = "MainForm";
 			this.Text = "Main Form";
+			this.Load += new System.EventHandler(this.MainForm_Load); // Load event added here
 			this.ResumeLayout(false);
 		}
 
-		private System.Windows.Forms.Button btnAircraftForm;
-		private System.Windows.Forms.Button btnLocationForm;
-		private System.Windows.Forms.Button btnReservationForm;
+		private System.Windows.Forms.TabControl tabControl;
+		private System.Windows.Forms.TabPage tabPageAircraft;
+		private System.Windows.Forms.TabPage tabPageLocation;
+		private System.Windows.Forms.TabPage tabPageReservation;
 	}
 }
