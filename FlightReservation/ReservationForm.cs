@@ -135,7 +135,8 @@ namespace FlightReservation
 				CustomerSurname = txtCustomerSurname.Text,
 				CustomerPhone = txtCustomerPhone.Text,
 				CustomerEmail = txtCustomerEmail.Text,
-				Gender = comboBoxGender.SelectedItem.ToString() // Cinsiyet bilgisi eklendi
+				Gender = comboBoxGender.SelectedItem.ToString(), // Cinsiyet bilgisi eklendi
+				CustomerAge = int.Parse(txtCustomerAge.Text) // Yaş bilgisi eklendi
 			};
 
 			_context.Reservations.Add(reservation);

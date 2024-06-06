@@ -23,5 +23,6 @@ namespace FlightReservation
 		public string CustomerPhone { get; set; }
 		public string CustomerEmail { get; set; }
 		public string Gender { get; set; } // Cinsiyet özelliği eklendi
+		public int CustomerAge { get; set; } // Yaş özelliği eklendi
 	}
 }
