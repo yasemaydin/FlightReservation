@@ -94,7 +94,7 @@ public class Reservation
 
     public string CustomerEmail { get; set; }
 
-    public int Gender { get; set; }
+    public string Gender { get; set; }
 
     public int Age { get; set; } 
 
